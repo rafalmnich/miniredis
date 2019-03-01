@@ -1437,14 +1437,14 @@ func TestSortedSetPopMax(t *testing.T) {
 		ok(t, err)
 		equals(t, 4, len(n))
 
-		equals(t, []string{"one", "1", "two", "2"}, n)
+		equals(t, []string{"inf", "inf", "three", "3"}, n)
 	}
 	// Get one - without count
 	{
 		n, err := redis.Strings(c.Do("ZPOPMAX", "z"))
 		ok(t, err)
 		equals(t, 2, len(n))
-		equals(t, []string{"zwei", "2"}, n)
+		equals(t, []string{"drei", "3"}, n)
 	}
 	// weird cases.
 	{
@@ -1463,7 +1463,7 @@ func TestSortedSetPopMax(t *testing.T) {
 		n, err := redis.Strings(c.Do("ZPOPMAX", "z", 100))
 		ok(t, err)
 		equals(t, 6, len(n))
-		equals(t, []string{"drei", "3", "three", "3", "inf", "inf"}, n)
+		equals(t, []string{"zwei", "2", "two", "2", "one", "1"}, n)
 	}
 
 	// Error cases
@@ -1505,14 +1505,14 @@ func TestSortedSetPopMin(t *testing.T) {
 		ok(t, err)
 		equals(t, 4, len(n))
 
-		equals(t, []string{"inf", "inf", "three", "3"}, n)
+		equals(t, []string{"one", "1", "two", "2"}, n)
 	}
 	// Get one - without count
 	{
 		n, err := redis.Strings(c.Do("ZPOPMIN", "z"))
 		ok(t, err)
 		equals(t, 2, len(n))
-		equals(t, []string{"drei", "3"}, n)
+		equals(t, []string{"zwei", "2"}, n)
 	}
 	// weird cases.
 	{
@@ -1531,7 +1531,7 @@ func TestSortedSetPopMin(t *testing.T) {
 		n, err := redis.Strings(c.Do("ZPOPMIN", "z", 100))
 		ok(t, err)
 		equals(t, 6, len(n))
-		equals(t, []string{"zwei", "2", "two", "2", "one", "1"}, n)
+		equals(t, []string{"drei", "3", "three", "3", "inf", "inf"}, n)
 	}
 
 	// Error cases
